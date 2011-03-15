@@ -19,7 +19,8 @@ seive = seive' [2..]
 -- To find the maximum prime divisor, we divide by larger and larger
 -- prime divisors, until we encounter a prime that is larger than the
 -- result of the division. Note that the seive is already sorted in
--- ascending order.
+-- ascending order. At first, I didn't bother doing the division by
+-- the candidate, but it *greatly* slows the search.
         
 largestPrimeDivisor n = largestDivisor n 1 (head seive) (tail seive)
 
