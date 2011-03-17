@@ -10,19 +10,15 @@ module Main where
 
 -- First, we'll use the sieve of Eratosthenes to generate the list of primes.
 
-seive :: [Integer]
-seive = seive' [2..]
-  where seive' (n:rest) =
-          n:seive' (filter (not . multiple n) rest)
-        multiple n m = m `mod` n == 0
+import Sieve
         
 -- To find the maximum prime divisor, we divide by larger and larger
 -- prime divisors, until we encounter a prime that is larger than the
--- result of the division. Note that the seive is already sorted in
+-- result of the division. Note that the sieve is already sorted in
 -- ascending order. At first, I didn't bother doing the division by
 -- the candidate, but it *greatly* slows the search.
         
-largestPrimeDivisor n = largestDivisor n 1 (head seive) (tail seive)
+largestPrimeDivisor n = largestDivisor n 1 (head sieve) (tail sieve)
 
 
 largestDivisor n last candidate cs@(next:rest) =
