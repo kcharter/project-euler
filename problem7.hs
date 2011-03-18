@@ -1,6 +1,7 @@
 module Main where
 
 import Sieve
+import Primality
 
 -- Problem 7:
 
@@ -22,23 +23,8 @@ easyButSlow = head $ drop 10000 sieve
 -- don't bother caching all the results, like we do when we evaluate a
 -- prefix of the list of all primes using the sieve. A number n is
 -- prime iff it is indivisible by every prime number p where p <= the
--- square root of n, i.e. p^2 <= n.
-
--- In 'isPrime' below, this greatly reduces how many elements of
--- 'sieve' we evaluate. Note, however, that this still isn't a good
--- primality tester for huge numbers. For those, we'd probably want a
--- solution that puts a hard limit on the size of a set of cached
--- primes (a prefix of 'sieve') and otherwise uses itself to find the
--- remaining primes below the square root.
-              
-
-isPrime :: Integer -> Bool
-isPrime n = isPrime' sieve
-  where isPrime' (p:rest) = 
-          case compare (p*p) n of
-            LT -> n `mod` p /= 0 && isPrime' rest
-            EQ -> False
-            GT -> True
+-- square root of n, i.e. p^2 <= n. 'Primality.isPrime' implements
+-- such a check.
 
 -- Indeed, this is a *lot* faster, and consumes a lot less memory.
             
